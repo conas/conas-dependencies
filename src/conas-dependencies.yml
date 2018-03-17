@@ -1,0 +1,16 @@
+versions:
+  jackson: '2.9.4'
+  jacksonKotlin: '2.9.4.1'
+  kotlinStd: '1.2.30'
+  lombok: '1.16.20'
+  springBoot: '2.0.0.RELEASE'
+dependencies:
+  jacksonDatabind: 'com.fasterxml.jackson.core:jackson-databind:${versions.jackson}'
+  jacksonKotlin: 'com.fasterxml.jackson.module:jackson-module-kotlin:${versions.jacksonKotlin}'
+  kotlinStd: 'org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlinStd}'
+  lombok: 'org.projectlombok:lombok:${versions.lombok}'
+  springBoot: 'org.springframework.boot:spring-boot-starter:${versions.springBoot}'
+  springBootActuator: 'org.springframework.boot:spring-boot-starter-actuator:${versions.springBoot}'
+  springBootHateoas: 'org.springframework.boot:spring-boot-starter-hateoas:${versions.springBoot}'
+  springBootWeb: 'org.springframework.boot:spring-boot-starter-web:${versions.springBoot}'
+  springBootJetty: 'org.springframework.boot:spring-boot-starter-jetty:${versions.springBoot}'

@@ -1,0 +1,20 @@
+apply plugin: 'java'
+
+group 'com.conas'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
+publishing {
+    publications {
+        conas(MavenPublication) {
+            artifact 'src/conas-dependencies.yml'
+        }
+    }
+}
+
+dependencies {
+    compile "com.netflix.spinnaker:spinnaker-dependencies:latest-release@yml"
+}
