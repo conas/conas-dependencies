@@ -1,11 +1,35 @@
-apply plugin: 'java'
 group 'com.conas'
+
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+
+        maven {
+            credentials {
+                username project.property('conas.artifactory.username')
+                password project.property('conas.artifactory.password')
+            }
+
+            url project.property('conas.artifactory.url') + "/clerk-release"
+        }
+    }
+
+    dependencies {
+        classpath 'com.conas:conas-gradle-plugin:1.4-SNAPSHOT'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+apply plugin: 'conas.artifactory'
+
+conasArtifactory {
+    ignoreBuildArtifacts = true
+}
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-
-apply plugin: 'maven'
-apply plugin: 'maven-publish'
 
 publishing {
     publications {
