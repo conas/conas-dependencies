@@ -11,30 +11,54 @@ buildscript {
                 password project.property('conas.artifactory.password')
             }
 
-            url project.property('conas.artifactory.url') + "/clerk-release"
+            url "${project.property('conas.artifactory.url')}/${project.property('conas.artifactory.repository')}/"
         }
     }
 
     dependencies {
-        classpath 'com.conas:conas-gradle-plugin:1.4-SNAPSHOT'
+        classpath 'com.conas:conas-gradle-plugin:1.2'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.2.6.RELEASE'
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'maven-publish'
 apply plugin: 'conas.artifactory'
+apply plugin: 'io.spring.dependency-management'
+apply from: './dependencies/dependencies.gradle'
 
 conasArtifactory {
     ignoreBuildArtifacts = true
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+import java.nio.file.Paths
+import java.nio.file.Files
+import java.nio.file.StandardCopyOption
+
+def getArtifactName() {
+    return "${buildDir}/conas-dependencies-${project.property('version')}.yml"
+}
+
+task copyArtefact {
+    def source = Paths.get("${project.projectDir}/dependencies/dependencies.yml")
+    def target = new File(getArtifactName())
+
+    if (!buildDir.exists()) {
+        buildDir.mkdir()
+    }
+
+    Files.copy(source, target.toPath(), StandardCopyOption.REPLACE_EXISTING)
+}
+
+release.dependsOn(copyArtefact)
 
 publishing {
     publications {
+        mavenBom(MavenPublication) {
+
+        }
         conas(MavenPublication) {
-            artifact 'src/conas-dependencies.yml'
+            artifact getArtifactName()
         }
     }
 }

@@ -9,7 +9,7 @@ versions:
   javaServlet: '4.0.0'
   javaValidationApi: '2.0.1.Final'
   jetcd: '0.0.2'
-  jose4j: '0.6.3'
+  jose4j: '0.7.0'
   junit: '4.12'
   kotlinStd: '1.2.40'
   lombok: '1.16.20'
